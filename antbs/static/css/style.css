@@ -10,7 +10,7 @@ body,
 .sidebar-logo { background: #272930 }
 .sidebar-logo .logo { display: block; margin: 0 auto; }
 .sidebar-logo .logo a img { display: block; height: auto; margin: 0 auto; max-width: 79%; position: relative; right: 8px; top: 17px; }
-.sb-collapsed .sidebar-logo { background: url("/static/images/antergos-everyone.png") no-repeat scroll 15px -39px #272930 }
+.sb-collapsed .sidebar-logo { background: url("/static/images/chakra.png") no-repeat scroll 15px -39px #272930 }
 .sb-collapsed .sidebar-logo .logo { display: initial; margin: initial; }
 .sb-collapsed .sidebar-logo .logo a img { display: none }
 .submenu_heading { font-weight: 700 !important; padding-top: 10px !important; font-size: 11px !important; }

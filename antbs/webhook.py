@@ -131,8 +131,8 @@ class WebhookMeta:
             elif attrib in self.attrib_lists['string']:
                 setattr(self, attrib, '')
 
-        self.repo = 'antergos-packages'
-        self.full_name = 'Antergos/antergos-packages'
+        self.repo = 'chakra-packages'
+        self.full_name = 'AlmAck/chakra-packages'
         self.request = dict(args={})
 
 
@@ -297,7 +297,7 @@ class Webhook(WebhookMeta):
                 logger.info(msg)
                 self.result = json.dumps({'msg': msg})
             else:
-                self.repo = 'antergos-packages'
+                self.repo = 'chakra-packages'
 
         elif self.repo == 'cnchi-dev':
             self.changes.append(['cnchi-dev'])
@@ -310,7 +310,7 @@ class Webhook(WebhookMeta):
     def process_changes(self):
         tpl = 'Webhook triggered by <strong>{0}.</strong> Packages added to the build queue: {1}'
 
-        if self.repo == "antergos-packages":
+        if self.repo == "chakra-packages":
             logger.debug("Build hook triggered. Updating build queue.")
             has_pkgs = False
             no_dups = []

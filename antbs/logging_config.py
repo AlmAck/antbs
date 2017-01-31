@@ -138,10 +138,10 @@ class LoggingConfig(metaclass=Singleton):
                     'level': 'ERROR',
                     'class': 'logging.handlers.SMTPHandler',
                     'mailhost': 'localhost',
-                    'fromaddr': 'error@build.antergos.org',
-                    'toaddrs': 'admin@antergos.org',
+                    'fromaddr': 'error@build.chakralinux.org',
+                    'toaddrs': 'admin@chakralinux.org',
                     'subject': 'AntBS Error Report',
-                    'credentials': ['error@build.antergos.org', self._smtp_pass],
+                    'credentials': ['error@build.chakralinux.org', self._smtp_pass],
                     'formatter': 'email'
                 },
                 'bugsnag': {

@@ -26,11 +26,11 @@
 							<ul class="nav nav-list tree">
 								<li class="open">
 									<label id="antergos" class="tree-toggler nav-header"><i class="fa fa-folder-open-o"></i>
-										antergos</label>
+										staging</label>
 									<ul class="nav nav-list tree">
-										<li class="file-li">
+										<!-- <li class="file-li">
 											<a id="i686" href="#" onclick="//goToi686()"><i class="fa fa-folder-o"></i> i686</a>
-										</li>
+										</li> -->
 										<li class="file-li">
 											<a id="x86_64" href="#" onclick="//goTox86_64()"><i class="fa fa-folder-open-o"></i> x86_64
 											</a></li>
@@ -72,10 +72,10 @@
 				});
 
 				if (jQuery(this).attr('id') == 'antergos') {
-					jQuery('#filesFrame').attr('src', '//repo.antergos.info/iso/testing/uefi/antergos-staging');
+					jQuery('#filesFrame').attr('src', '//rsync.chakralinux.org/packages/staging');
 				}
 				else if (jQuery(this).attr('id') == 'repo') {
-					jQuery('#filesFrame').attr('src', '//repo.antergos.info/iso/testing/uefi/antergos-staging');
+					jQuery('#filesFrame').attr('src', '//rsync.chakralinux.org/packages/staging');
 				}
 
 			});
@@ -105,7 +105,7 @@
 
 				jQuery('#filesFrame').attr('src', '//repo.antergos.info/iso/testing/uefi/antergos-staging/i686');
 			} else if (jQuery(this).children('#x86_64').length) {
-				jQuery('#filesFrame').attr('src', '//repo.antergos.info/iso/testing/uefi/antergos-staging/x86_64');
+				jQuery('#filesFrame').attr('src', '//rsync.chakralinux.org/packages/staging/x86_64');
 			}
 		});
 
@@ -114,7 +114,7 @@
 			jQuery('#filesFrame').attr('src', '//repo.antergos.info/iso/testing/uefi/antergos-staging/i686');
 		}
 		function goTox86_64() {
-			jQuery('#filesFrame').attr('src', '//repo.antergos.info/iso/testing/uefi/antergos-staging/x86_64');
+			jQuery('#filesFrame').attr('src', '//rsync.chakralinux.org/packages/staging/x86_64');
 		}
 
 	</script>

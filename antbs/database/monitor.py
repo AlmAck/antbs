@@ -340,8 +340,9 @@ class Monitor(RedisHash):
         saved_status = set_server_status(first=True, is_monitor=True)
 
         build_pkgs = []
-        first = list(self.packages)[0]
-        last = list(self.packages)[-1]
+        if self.packages:
+            first = list(self.packages)[0]
+            last = list(self.packages)[-1]
         before = ''
         after = ''
 
@@ -460,8 +461,8 @@ def check_repos_for_changes(check_github, sync_repos, webhook):
     status.cleanup_all_packages_list(get_pkg_object)
     monitor_obj.check_repos_for_changes(check_github, sync_repos, webhook)
 
-    if not monitor_obj.et_stats_checked_today:
-        monitor_obj.check_et_stats()
+    #if not monitor_obj.et_stats_checked_today:
+    #    monitor_obj.check_et_stats()
 
     if check_github:
         monitor_obj.check_is_running = False

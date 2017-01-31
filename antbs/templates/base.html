@@ -7,9 +7,9 @@
 		<head>
 			{%- block head %}
 				<meta charset="utf-8">
-				<meta name="description" content="Antergos Automated Build Server">
-				<meta name="author" content="Antergos Developers">
-				<link rel="shortcut icon" href="/static/images/fav.png">
+				<meta name="description" content="Chakra Automated Build Server">
+				<meta name="author" content="Chakra Developers">
+				<link rel="shortcut icon" href="/static/images/favicon.ico">
 				<title>{% block pagetitle %}{% endblock pagetitle %} | AntBS</title>
 
 				{%- block metas %}
@@ -39,7 +39,7 @@
 		<body{% block body_attribs %} class="animated {{ self|tpl_name()|replace('.html', '') }}"{% endblock body_attribs %}>
 
 		{% block body -%}
-			{% include '_partials/_antergos_links_bar.html' %}
+			{% include '_partials/_chakra_links_bar.html' %}
 			<!-- WRAPPER -->
 			<div id="cl-wrapper">
 
