@@ -205,29 +205,6 @@ class Monitor(RedisHash):
 
         wh.process_changes()
 
-    def check_et_stats(self):
-        try:
-            response = requests.get(status.ethemes_url)
-            response.raise_for_status()
-        except Exception as err:
-            status.logger.exception(err)
-            return
-
-        if not response.text:
-            status.logger.error('Response text empty!')
-            return
-
-        matches = re.search(r'et_count">(\d{3,})<\/spa', response.text)
-
-        if not matches:
-            status.logger.error('No match found!')
-            return
-
-        today = datetime.now().strftime("%Y%m%d")
-        self.et_stats_checked_today = (True, 86400)
-
-        self.db.hset(status.et_count_key, int(today), int(matches.group(1)))
-
     # def check_custom_xml_for_changes(self, pkg_obj, build_pkgs):
     #     url = pkg_obj.mon_type
     #     req = requests.head(url)
@@ -299,7 +276,8 @@ class Monitor(RedisHash):
 
     def check_mate_desktop_server_for_changes(self, pkg_obj):
         if self.mate is None:
-            url = 'http://pub.mate-desktop.org/releases/{}/SHA1SUMS'.format(pkg_obj.mon_match_pattern)
+            url = 'http://pub.mate-desktop.org/releases/1.18/SHA1SUMS'
+            # url = 'http://pub.mate-desktop.org/releases/{}/SHA1SUMS'.format()
             self.mate = CheckSumsMonitor(url, self.mate_last_etag, status=status)
             self.mate_last_etag = self.mate.etag
 
@@ -340,9 +318,8 @@ class Monitor(RedisHash):
         saved_status = set_server_status(first=True, is_monitor=True)
 
         build_pkgs = []
-        if self.packages:
-            first = list(self.packages)[0]
-            last = list(self.packages)[-1]
+        first = list(self.packages)[0]
+        last = list(self.packages)[-1]
         before = ''
         after = ''
 
@@ -429,10 +406,6 @@ class Monitor(RedisHash):
 
             changes = {'pkgver': (pkg_obj.pkgver, latest)}
 
-            if 'mate-desktop' == pkg_obj.mon_service:
-                checksum = monitor_obj.files[pkg_obj.pkgname]['checksum']
-                changes['sha1sums'] = (pkg_obj.checksum, checksum)
-
             pkg_obj.update_pkgbuild_and_push_github(changes)
 
         return build_pkgs
@@ -460,9 +433,6 @@ def check_repos_for_changes(check_github, sync_repos, webhook):
 
     status.cleanup_all_packages_list(get_pkg_object)
     monitor_obj.check_repos_for_changes(check_github, sync_repos, webhook)
-
-    #if not monitor_obj.et_stats_checked_today:
-    #    monitor_obj.check_et_stats()
 
     if check_github:
         monitor_obj.check_is_running = False

@@ -39,6 +39,8 @@ class RepoView(FlaskView):
         args = [arg for arg in [_filter, filter_by] if arg is not None]
 
         for arg in args:
+            if arg in status.package_groups:
+                continue
             if arg.isdigit() or not arg.isalpha():
                 abort(404)
 
@@ -98,7 +100,7 @@ class RepoView(FlaskView):
         if _filter not in ['search', 'group', 'monitored']:
             return False
 
-        if filter_by and not re.fullmatch(r'\w+$', filter_by):
+        if filter_by and not re.fullmatch(r'[\w-]+$', filter_by):
             return False
 
         if 'group' == _filter and filter_by not in status.package_groups:

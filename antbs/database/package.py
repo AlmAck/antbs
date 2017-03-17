@@ -130,11 +130,11 @@ class Package(PackageMeta):
 
     def initialize_once(self):
         allowed_in = self.get_from_pkgbuild('_allowed_in')
-        auto_sum = self.get_from_pkgbuild('_auto_sum')
+        auto_sum = self.get_from_pkgbuild('_auto_sum') or self.get_from_pkgbuild('_autosums')
         is_metapkg = self.get_from_pkgbuild('_is_metapkg') in ['True', 'yes']
         is_monitored = self.get_from_pkgbuild('_is_monitored') in ['True', 'yes']
         patterns = ['pkgname=(', 'pkgbase=']
-        is_split_package = [True for pattern in patterns if pattern in self.pkgbuild]
+        is_split_package = any(True for pattern in patterns if pattern in self.pkgbuild)
 
         if '-x86_64' in self.name or '-i686' in self.name:
             self.is_iso = True
@@ -406,12 +406,6 @@ class Package(PackageMeta):
             if not self.mon_last_result:
                 self.mon_last_result = self.get_from_pkgbuild('pkgver')
 
-            if self.auto_sum and self.mon_last_result.replace('|', '.') != old_vals['pkgver']:
-                _pkgver, _buildver = self.mon_last_result.split('|')
-                changed['_pkgver'] = _pkgver
-                changed['_buildver'] = _buildver
-                changed['pkgver'] = self.mon_last_result.replace('|', '.')
-                changed['pkgrel'] = '1'
             elif 'pamac-dev' == self.pkgname:
                 # Hack -- fix later.
                 changed['pkgver'] = get_pkg_object('pamac').pkgver
@@ -563,6 +557,7 @@ class Package(PackageMeta):
         self.pkgdesc = self.get_from_pkgbuild('pkgdesc')
         self.description = self.pkgdesc
         self.url = self.get_from_pkgbuild('url')
+        self.auto_sum = self.get_from_pkgbuild('_auto_sum') or self.get_from_pkgbuild('_autosums')
 
         if self.is_split_package:
             self.sync_pkgbuild_array_by_key('pkgname')

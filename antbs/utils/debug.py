@@ -28,10 +28,10 @@
 
 from flask import request
 from flask_debugtoolbar import DebugToolbarExtension
-from flask_stormpath import current_user
+from . import get_current_user
 
 
 class AntBSDebugToolbar(DebugToolbarExtension):
     @staticmethod
     def _show_toolbar():
-        return current_user.is_authenticated and '/rq' not in request.path
+        return get_current_user().is_authenticated and '/rq' not in request.path

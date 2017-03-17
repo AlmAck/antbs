@@ -66,7 +66,17 @@ class ColumnsInfo:
             {
                 'heading_text': 'Last Build',
                 'obj_attr': '_build.bnum',
-                'content_type': 'link',
+                'content_type': 'link_with_icon',
+                'icon_info': {
+                    'class': {
+                        'completed': 'check',
+                        'failed': 'times',
+                    },
+                    'color':  {
+                        'completed': '#2CC36B',
+                        'failed': '#EA6153',
+                    },
+                },
                 'base_url': '/build/',
                 'dd_info': ''
             },
@@ -115,7 +125,7 @@ class ColumnsInfo:
             }
         ]
 
-        if self.current_user.is_authenticated and '/monitored' not in self.request.path:
+        if self.current_user.is_authenticated and '/packages' in self.request.path:
             columns_info.append({
                 'heading_text': 'Manage',
                 'obj_attr': '',
@@ -154,7 +164,7 @@ class ColumnsInfo:
 
         elif '/monitored' in self.request.path:
             columns_info.insert(3, {
-                'heading_text': 'Monitored Service',
+                'heading_text': 'Service',
                 'obj_attr': 'mon_service',
                 'content_type': 'label_tag_link',
                 'base_url': '',
@@ -162,13 +172,13 @@ class ColumnsInfo:
                 'color_class': 'default'
             })
             columns_info.insert(4, {
-                'heading_text': 'Monitored Type',
+                'heading_text': 'Type',
                 'obj_attr': 'mon_type',
                 'content_type': 'text',
                 'dd_info': ''
             })
             columns_info.insert(5, {
-                'heading_text': 'Monitored Repo',
+                'heading_text': 'Repo',
                 'obj_attr': ['mon_project', 'mon_repo'],
                 'content_type': 'link',
                 'base_url': 'https://github.com/',
@@ -176,7 +186,7 @@ class ColumnsInfo:
                 'color_class': 'default'
             })
             columns_info.insert(6, {
-                'heading_text': 'Monitor Last Checked',
+                'heading_text': 'Last Checked',
                 'obj_attr': 'mon_last_checked',
                 'content_type': 'text_with_icon',
                 'icon_info': {
@@ -186,7 +196,7 @@ class ColumnsInfo:
                 'dd_info': ''
             })
             columns_info.insert(7, {
-                'heading_text': 'Monitored Last Result',
+                'heading_text': 'Last Result',
                 'obj_attr': 'mon_last_result',
                 'content_type': 'text',
                 'dd_info': ''
